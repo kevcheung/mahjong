@@ -12,3 +12,5 @@ makeWall = function(obj){
 }
 console.log(tileWall.flat())
 };
+
+test
