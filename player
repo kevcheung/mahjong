@@ -1,0 +1,118 @@
+function player(userID){
+	this.userID = userID;
+	this.openHand = [];
+	this.hiddenHand = [];
+	this.isActive = false;
+	this.handSize = 12;
+	this.winner = false;
+
+	//input is the wall and boolean indicating if drawing from front (true) or end (false) of wall
+	draw: function(wall, front){
+		if(front){
+			tile = wall.pop();
+		}else{
+			tile = wall.shift();
+		}
+		while(tile is a flower){
+			this.openHand.push(tile);
+			this.handSize++;
+			tile = wall.shift();
+		}
+
+		addToHand(tile);
+	}
+
+	discard: function(index, pool){
+		if(index < hiddenHand.size()){
+			tile = this.hiddenHand.splice(index, 1);
+			pool.push(tile);
+		}
+	}
+
+	chi: function(pool){
+		if(this.isActive){
+			tile = pool.pop()
+			if(tile completes 3 in a row){
+				this.openHand.push(tile);
+				//remove other two consecutive tiles from hiddenHand and add to openHand
+			}else{
+				pool.push(tile);
+			}
+		}
+	}
+
+	peng: function(pool){
+		tile = pool.pop()
+		matchingTiles = this.findMatches(tile);
+		if(matchingTiles.size() == 3){
+			this.openHand.push(tile);
+			moveMatches(matchingTiles);
+		}else{
+			pool.push(tile);
+		}
+	}
+
+	gang: function(pool, wall){
+		tile = pool.pop()
+		matchingTiles = this.findMatches(tile);
+		if(matchingTiles.size() == 4){
+			this.openHand.push(tile);
+			moveMatches(matchingTiles;
+			this.draw(wall, false);
+		}else{
+			pool.push(tile);
+		}
+	}
+
+	winningSteal: function(pool){
+		tile = pool.pop();
+		if(winningHand(tile)){
+			addtoHand(tile);
+			this.winner = true;
+		}else{
+			pool.push(tile);
+		}
+	}
+
+	winningHand: function(tile){
+	//checks if given tile completes a winning hand
+	//returns true/false boolean
+	}
+
+	findMatches: function(tile){
+		matchingTiles = [];
+
+		//must find indices of the matching tiles in decreasing order to remove from array
+		for (i=this.hiddenHandSize - 1; i >= 0; i--){
+			if(this.hiddenHand[i] == tile){
+				matchingTiles.push(tile);
+			}
+		}
+
+		//returns the indices of the tiles in hiddenHand that match the given tile
+		return matchingTiles;
+	}
+
+	moveMatches: function(matchingTiles){
+	//input is an array of the indices of matching tiles in decreasing order
+		for (i = 0;  i < matchingTiles.size(); i++){
+			index = matchingTiles[i];
+			tile = this.hiddenHand.splice(index, i);
+			this.openHand.push(tile);
+		}
+	}
+
+	addToHand: function(tile){
+		if(this.hiddenHand.size() > 0){
+			i = 0
+			while(tile > hiddenHand[i]){
+				i++;
+			}
+			hiddenHand.splice(i, 0, tile);
+		}else{
+			this.hiddenHand.push(tile);
+		}
+	}
+
+}
+
